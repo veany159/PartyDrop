@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout | The Party Drop</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="checkout">
+
+  <header class="nav">
+    <div class="container page-head">
+      <a href="build.html?step=5" class="icon-btn" aria-label="Back"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2B1D16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></a>
+      <span class="title">Checkout</span>
+      <span class="muted" style="display:flex;align-items:center;gap:4px;font-size:11px;width:44px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6B5747" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Secure</span>
+    </div>
+  </header>
+
+  <form class="container checkout-layout" id="checkoutForm" novalidate>
+    <div>
+      <!-- 1. WHEN -->
+      <section class="form-section">
+        <div class="eyebrow">1 · When</div>
+        <h2>Pick your date and window.</h2>
+        <div>
+          <label class="lbl" for="date">Delivery date</label>
+          <input id="date" class="inp" type="date" required>
+          <p class="muted" style="font-size:12px;margin-top:6px">Earliest available: 48h from now. Peak dates carry a surcharge.</p>
+        </div>
+        <div>
+          <span class="lbl">2-hour window</span>
+          <div class="grid-3">
+            <button type="button" class="seg seg-sm on" data-win="9-11">9–11 am</button>
+            <button type="button" class="seg seg-sm" data-win="11-13">11 am–1 pm</button>
+            <button type="button" class="seg seg-sm" data-win="13-15">1–3 pm</button>
+            <button type="button" class="seg seg-sm" data-win="15-17">3–5 pm</button>
+            <button type="button" class="seg seg-sm" disabled style="opacity:.45">5–7 pm · full</button>
+            <button type="button" class="seg seg-sm" data-win="checkin">Before check-in</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. WHERE -->
+      <section class="form-section">
+        <div class="eyebrow">2 · Where</div>
+        <h2>Where are you staying?</h2>
+        <div>
+          <span class="lbl">Property type</span>
+          <div class="grid-2" style="grid-template-columns:repeat(4,1fr)">
+            <button type="button" class="seg seg-sm on" data-prop="villa">Villa</button>
+            <button type="button" class="seg seg-sm" data-prop="airbnb">Airbnb</button>
+            <button type="button" class="seg seg-sm" data-prop="condo">Condo</button>
+            <button type="button" class="seg seg-sm" data-prop="hotel">Hotel</button>
+          </div>
+        </div>
+        <div>
+          <label class="lbl" for="zone">Area</label>
+          <select id="zone" class="inp">
+            <option value="A">Puerto Vallarta · Marina · Hotel Zone · Romantic Zone · Nuevo Vallarta</option>
+            <option value="B">Bucerías · La Cruz · Flamingos</option>
+            <option value="C">Punta de Mita · Litibú · Sayulita</option>
+          </select>
+          <div class="zone-info" id="zoneInfo"></div>
+          <p class="error mt-1" id="minError"></p>
+        </div>
+        <div><label class="lbl" for="prop">Property or complex name</label><input id="prop" class="inp" type="text" placeholder="e.g. Villa Serena, Casa Kimberly, Marriott" required></div>
+        <div class="grid-2">
+          <div><label class="lbl" for="addr">Street address</label><input id="addr" class="inp" type="text" placeholder="Street and number"></div>
+          <div><label class="lbl" for="unit">Unit / villa #</label><input id="unit" class="inp" type="text" placeholder="Optional"></div>
+        </div>
+        <div><label class="lbl" for="access">How do we get in?</label><textarea id="access" class="inp" placeholder="Gate code, front desk, lockbox, or who will open the door"></textarea></div>
+        <div><label class="lbl" for="host">Host or concierge contact (recommended)</label><input id="host" class="inp" type="text" placeholder="Name and WhatsApp"></div>
+      </section>
+
+      <!-- 3. WHO -->
+      <section class="form-section">
+        <div class="eyebrow">3 · Who</div>
+        <h2>Who's receiving the Drop?</h2>
+        <button type="button" class="toggle on" id="surprise">
+          <span class="toggle-text"><strong>It's a surprise</strong><span>We'll only message the person you name below.</span></span>
+          <span class="switch"></span>
+        </button>
+        <div><label class="lbl" for="contact" id="contactLabel">Who is in on the surprise?</label><input id="contact" class="inp" type="text" placeholder="Name"></div>
+        <div><label class="lbl" for="wa">WhatsApp number that works in Mexico</label><input id="wa" class="inp" type="tel" placeholder="+1 ..."></div>
+        <div><label class="lbl" for="card">Card message (we write it by hand)</label><textarea id="card" class="inp" style="height:72px" placeholder="Happy 40th, Jess. We love you."></textarea></div>
+        <div><label class="lbl" for="allergy">Allergies or notes</label><input id="allergy" class="inp" type="text" placeholder="Optional"></div>
+      </section>
+    </div>
+
+    <!-- 4. PAY -->
+    <aside class="checkout-summary">
+      <section class="form-section">
+        <div class="eyebrow">4 · Pay</div>
+        <h2>Your Drop</h2>
+        <div class="summary-box">
+          <div id="summaryLines"></div>
+          <div class="summary-total"><span>Total (USD)</span><span class="price" id="grand">$0</span></div>
+        </div>
+        <button type="button" class="pay-btn pay-apple">Pay with Apple Pay</button>
+        <button type="button" class="pay-btn pay-google">Pay with Google Pay</button>
+        <div class="divider">or pay with card</div>
+        <input class="inp" type="text" placeholder="Card number" aria-label="Card number" inputmode="numeric">
+        <div class="grid-2">
+          <input class="inp" type="text" placeholder="MM / YY" aria-label="Expiry">
+          <input class="inp" type="text" placeholder="CVC" aria-label="CVC" inputmode="numeric">
+        </div>
+        <input class="inp" type="email" placeholder="Email for confirmation" aria-label="Email">
+        <label class="checkbox">
+          <input type="checkbox" id="terms">
+          <span>I agree to the delivery and cancellation policy: free changes and full refund up to 72h before; 50% between 72h and 24h; no refund inside 24h.</span>
+        </label>
+        <p class="error" id="termsError">Please accept the policy to continue.</p>
+        <button type="submit" class="btn btn-primary" id="placeOrder">Place order</button>
+        <p class="muted center" style="font-size:12px">Guest checkout · No account needed · Secure payment</p>
+      </section>
+    </aside>
+  </form>
+
+  <div style="height:48px"></div>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

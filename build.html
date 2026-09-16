@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Build Your Drop | The Party Drop</title>
+  <meta name="description" content="Pick your food, add bubbles, flowers and balloons. Your celebration, delivered to your stay in Puerto Vallarta.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="build">
+
+  <header class="nav">
+    <div class="container page-head">
+      <a href="index.html" class="icon-btn" aria-label="Back to home"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2B1D16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></a>
+      <span class="title">Build Your Drop</span>
+      <span style="width:44px"></span>
+    </div>
+  </header>
+
+  <main class="container wizard">
+    <div class="progress"><span></span><span></span><span></span><span></span></div>
+    <div class="progress-labels"><span id="stepLabel">Pick your food</span><span id="stepNum">Step 1 of 4</span></div>
+
+    <!-- STEP 1 -->
+    <section class="wizard-step active">
+      <div class="eyebrow">Step 1</div>
+      <h1>Pick your food.</h1>
+      <p class="muted">Every Drop starts with a board. Choose one, then a size.</p>
+      <div class="stack" id="foodList"></div>
+      <div class="lbl mt-1">Size</div>
+      <div class="seg-group" style="margin-top:0">
+        <button type="button" class="seg" id="sizeS"></button>
+        <button type="button" class="seg" id="sizeL"></button>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="wizard-step">
+      <div class="eyebrow">Step 2</div>
+      <h1>Add your bubbles.</h1>
+      <p class="muted">Fresh juices, fruit garnish, premium cups and the bubbles. Everything for mimosas, nothing to shop for.</p>
+      <div class="wizard-img"><img src="assets/img/bubbles-mr-mrs.jpg" alt="Pink sparkling drinks with raspberries"></div>
+      <div class="stack" id="bubblesList"></div>
+      <p class="muted" style="font-size:12px">Alcohol-free version (Juice Set) available at the same step, [price TBD].</p>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="wizard-step">
+      <div class="eyebrow">Step 3</div>
+      <h1>Add something pretty.</h1>
+      <p class="muted">One seasonal arrangement, styled to the table. You pick the size, we pick the stems.</p>
+      <div class="wizard-img"><img src="assets/img/flowers.jpg" alt="Pink roses and white lilies"></div>
+      <div class="stack" id="flowersList"></div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="wizard-step">
+      <div class="eyebrow">Step 4</div>
+      <h1>Make it a party.</h1>
+      <p class="muted">Balloons, a sign, candles and a handwritten card. Simple, elegant, ready for the photo.</p>
+      <div class="wizard-img"><img src="assets/img/birthday-cake.jpg" alt="Naked cake with berries and flowers"></div>
+      <div class="stack" id="balloonsList"></div>
+      <button type="button" class="opt" id="setupOpt" style="border-color:#2B1D16;margin-top:6px">
+        <span class="opt-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFF9F3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+        <span class="opt-thumb dark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D7B26A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18M5 11v8h14v-8M12 3v4M8 7h8"/></svg></span>
+        <span class="opt-text"><strong>Upgrade to Set It Up</strong><span>We style the table before they walk in. Zones A &amp; B, 72h notice.</span></span>
+        <span class="opt-price">+$120</span>
+      </button>
+    </section>
+
+    <!-- READY -->
+    <section class="wizard-step">
+      <div class="eyebrow">Ready</div>
+      <h1>Your Drop is ready.</h1>
+      <div class="wizard-img"><img src="assets/img/churros-hands.jpg" alt="Hands reaching for a shared plate"></div>
+      <div class="summary-box">
+        <div id="summaryLines"></div>
+        <div class="summary-total"><span>Your Drop</span><span class="price js-total">$0</span></div>
+      </div>
+      <p class="muted" style="font-size:12px">Delivery fee and minimum order are calculated by zone in the next step. Prices in USD.</p>
+      <a href="checkout.html" class="btn btn-primary" id="toCheckout">Check date &amp; checkout</a>
+      <div class="chips" style="justify-content:center">
+        <button type="button" class="chip js-editstep" data-step="1" style="height:36px;font-size:12px;background:transparent">Edit food</button>
+        <button type="button" class="chip js-editstep" data-step="2" style="height:36px;font-size:12px;background:transparent">Bubbles</button>
+        <button type="button" class="chip js-editstep" data-step="3" style="height:36px;font-size:12px;background:transparent">Flowers</button>
+        <button type="button" class="chip js-editstep" data-step="4" style="height:36px;font-size:12px;background:transparent">Party</button>
+      </div>
+      <button type="button" class="btn btn-ghost" id="restartBtn">Start over</button>
+    </section>
+  </main>
+
+  <div class="sticky-cta" id="wizardFooter">
+    <div class="container wizard wizard-footer">
+      <div class="total-row" style="padding:0"><span class="muted" style="font-size:13px">Your Drop</span><span class="price js-total">$0</span></div>
+      <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+      <div class="row">
+        <button type="button" class="btn btn-ghost" id="backBtn">Back</button>
+        <button type="button" class="btn btn-ghost" id="skipBtn">Skip this step</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
