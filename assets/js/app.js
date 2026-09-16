@@ -1,31 +1,60 @@
 /* THE PARTY DROP — site logic
-   Catalog, cart (localStorage), Build Your Drop wizard, product page, checkout.
+   Catalog, cart (localStorage), Build Your Drop wizard, product & drop pages, checkout.
    Prices are ILLUSTRATIVE placeholders until the cost model is final. */
 
 const TPD = (() => {
   // ---------- Catalog ----------
   const CATALOG = {
     food: [
-      { id: 'grazing', name: 'The Grazing Board', desc: 'Cheese, charcuterie, fruit, dips', img: 'assets/img/grazing-board.jpg', sizes: { S: 149, L: 239 } },
-      { id: 'brunch',  name: 'The Brunch Board',  desc: 'Croissant sandwiches, pastries, fruit', img: 'assets/img/brunch-bagel.jpg', sizes: { S: 139, L: 219 } },
-      { id: 'fruit',   name: 'The Fruit Board',   desc: 'Tropical fruit, cut and styled', img: 'assets/img/salmon-toast.jpg', sizes: { S: 89, L: 139 } },
-      { id: 'botana',  name: 'La Botana Board',   desc: 'Mexican cheeses, botana, salsas', img: 'assets/img/botana.jpg', sizes: { S: 139, L: 219 } }
+      { id: 'grazing', name: 'The Grazing Board', tag: 'Food · Best seller', desc: 'Cheese, charcuterie, fruit, dips',
+        long: 'Cheese, charcuterie, fresh fruit, nuts, olives, crackers and dips. Styled, chilled and ready to serve the moment it lands.',
+        img: 'assets/img/grazing-board.jpg', photos: ['assets/img/grazing-board.jpg', 'assets/img/charcuterie-tray.jpg', 'assets/img/canapes.jpg'],
+        sizes: { S: 149, L: 239 },
+        includes: ['3 artisan cheeses (brie, manchego, aged gouda)', '2 cured meats (jamón serrano, salami)', 'Seasonal fresh fruit', 'Nuts & marinated olives', 'Crackers & sliced baguette', '2 house dips + honey', 'Board or tray included, no return needed'],
+        perfect: 'A light lunch for 4–6, or a grazing snack for 8–10. Arrival day, pool day, before dinner.',
+        dietary: 'Contains dairy, gluten, tree nuts. Meat-free option available at the same price.' },
+      { id: 'brunch', name: 'The Brunch Board', tag: 'Food · Brunch', desc: 'Croissant sandwiches, pastries, fruit',
+        long: 'Mini croissant sandwiches, seasonal pastries, fresh fruit and a house-made accompaniment. The birthday brunch, solved.',
+        img: 'assets/img/brunch-bagel.jpg', photos: ['assets/img/brunch-bagel.jpg', 'assets/img/brunch-bagel-drink.jpg', 'assets/img/espresso.jpg'],
+        sizes: { S: 139, L: 219 },
+        includes: ['Mini croissant sandwiches (ham & cheese · turkey & avocado)', 'Seasonal pastries', 'Fresh fruit', 'House-made jam & butter', 'Napkins & serving tongs', 'Board or tray included'],
+        perfect: 'A full brunch for 4–6 (12 sandwiches) or 8–12 (24 sandwiches). Pairs with the Mimosa Kit.',
+        dietary: 'Contains dairy, gluten, eggs. Vegetarian sandwiches on request.' },
+      { id: 'fruit', name: 'The Fruit Board', tag: 'Food · Fresh', desc: 'Tropical fruit, cut and styled',
+        long: 'Tropical fruit of the season, cut, chilled and styled on a board. The lightest way to start a pool day.',
+        img: 'assets/img/salmon-toast.jpg', photos: ['assets/img/salmon-toast.jpg', 'assets/img/canapes.jpg', 'assets/img/churros-hands.jpg'],
+        sizes: { S: 89, L: 139 },
+        includes: ['Mango, papaya, pineapple, watermelon (seasonal)', 'Berries', 'Lime wedges & Tajín on the side', 'Fresh mint', 'Board or tray included'],
+        perfect: 'Pool day, welcome day, or the fresh side of any brunch. Serves 4–6 or 8–12.',
+        dietary: 'Vegan, gluten-free, nut-free.' },
+      { id: 'botana', name: 'La Botana Board', tag: 'Food · Mexican', desc: 'Mexican cheeses, botana, salsas',
+        long: 'The grazing board, Mexican style: Oaxaca and panela cheese, artisanal botana, fruit with chile, salsas and tostadas.',
+        img: 'assets/img/botana.jpg', photos: ['assets/img/botana.jpg', 'assets/img/churros-hands.jpg', 'assets/img/charcuterie-tray.jpg'],
+        sizes: { S: 139, L: 219 },
+        includes: ['Queso Oaxaca, panela & cotija', 'Artisanal botana: cacahuates, chicharrón de harina', 'Jícama, cucumber & mango with chile', '2 house salsas + guacamole', 'Tostadas & totopos', 'Board or tray included'],
+        perfect: 'Sunset snacks, pool day, the "we\'re in Mexico" moment. Serves 4–6 or 8–12.',
+        dietary: 'Contains dairy, gluten (tostadas), peanuts. Vegetarian.' }
     ],
     bubbles: [
-      { id: 'b6',  name: 'Mimosa Kit for 6',  desc: '2 bottles · 2 juices · garnish · 6 cups', price: 79 },
-      { id: 'b12', name: 'Mimosa Kit for 12', desc: '4 bottles · 3 juices · garnish · 12 cups', price: 129 }
+      { id: 'b6',  name: 'Mimosa Kit for 6',  desc: '2 bottles · 2 juices · garnish · 6 cups', price: 79,
+        includes: ['2 bottles of sparkling wine*', 'Fresh orange juice + seasonal juice', 'Fruit garnish', '6 premium cups', 'Ice, when available'] },
+      { id: 'b12', name: 'Mimosa Kit for 12', desc: '4 bottles · 3 juices · garnish · 12 cups', price: 129,
+        includes: ['4 bottles of sparkling wine*', 'Fresh orange juice + 2 seasonal juices', 'Fruit garnish', '12 premium cups', 'Ice, when available'] }
     ],
     flowers: [
-      { id: 'fp', name: 'Fresh Flowers · Petite',    desc: 'A small seasonal arrangement', price: 65 },
-      { id: 'fs', name: 'Fresh Flowers · Statement', desc: 'A full table arrangement', price: 110 },
-      { id: 'fr', name: 'Romantic Flowers',          desc: 'Roses, for anniversaries and surprises', price: 95 }
+      { id: 'fp', name: 'Fresh Flowers · Petite',    desc: 'A small seasonal arrangement', price: 65,  includes: ['Seasonal stems, styled to the table', 'Vase included', 'Care card'] },
+      { id: 'fs', name: 'Fresh Flowers · Statement', desc: 'A full table arrangement', price: 110, includes: ['Full seasonal arrangement', 'Statement vase included', 'Care card'] },
+      { id: 'fr', name: 'Romantic Flowers',          desc: 'Roses, for anniversaries and surprises', price: 95, includes: ['12 roses (red or blush)', 'Eucalyptus & greenery', 'Vase included', 'Handwritten card'] }
     ],
     balloons: [
-      { id: 'bb', name: 'Birthday Set',     desc: '"Happy Birthday" sign · candles · card', price: 85 },
-      { id: 'bh', name: 'Bachelorette Set', desc: 'Bride sign · candles · card', price: 85 },
-      { id: 'bc', name: 'Celebration Set',  desc: 'Anniversary, welcome, congrats · candles · card', price: 85 }
+      { id: 'bb', name: 'Birthday Set',     desc: '"Happy Birthday" sign · candles · card', price: 85, includes: ['Balloon set in our palette (12–15 balloons)', '"Happy Birthday" sign', 'Candles + matches', 'Confetti', 'Handwritten card'] },
+      { id: 'bh', name: 'Bachelorette Set', desc: 'Bride sign · candles · card', price: 85, includes: ['Balloon set in our palette (12–15 balloons)', '"Bride" sign', 'Candles + matches', 'Confetti', 'Handwritten card'] },
+      { id: 'bc', name: 'Celebration Set',  desc: 'Anniversary, welcome, congrats · candles · card', price: 85, includes: ['Balloon set in our palette (12–15 balloons)', 'Neutral celebration sign', 'Candles + matches', 'Confetti', 'Handwritten card'] }
     ],
-    setup: { name: 'Set It Up', price: 120 }
+    pinata: { name: 'Piñata', desc: 'Handmade, filled, ready to hang', price: 59,
+      includes: ['Handmade piñata (star, or ask for a shape)', 'Filled with candy & confetti', 'Stick & blindfold', 'Rope, ready to hang'] },
+    setup: { name: 'Set It Up', desc: 'We style the table before they walk in', price: 120,
+      includes: ['Our team arrives 30–45 min before', 'Table styled: food, cups, flowers, balloons', 'A photo sent to you when it\'s ready', 'Zones A & B · 72h notice'] }
   };
   const SIZE_LABEL = { S: 'Serves 4–6', L: 'Serves 8–12' };
   const ZONES = {
@@ -33,9 +62,21 @@ const TPD = (() => {
     B: { name: 'Zone B', fee: 45, min: 250 },
     C: { name: 'Zone C', fee: 75, min: 350 }
   };
+  const DROPS = {
+    birthday: { name: 'The Birthday Drop', tagline: 'The surprise, ready when they walk in.', img: 'assets/img/birthday-cake.jpg', serves: 'Serves 4–6',
+      cart: { food: 'grazing', size: 'S', bubbles: 'b6', flowers: 'fp', balloons: 'bb', pinata: false, setup: false } },
+    brunch: { name: 'The Brunch Drop', tagline: 'A slow morning, without the shopping.', img: 'assets/img/brunch-bagel-drink.jpg', serves: 'Serves 4–6',
+      cart: { food: 'brunch', size: 'S', bubbles: 'b6', flowers: null, balloons: null, pinata: false, setup: false } },
+    girls: { name: 'The Girls Trip Drop', tagline: 'Big board, twelve cups, one bride sign.', img: 'assets/img/canapes.jpg', serves: 'Serves 8–12',
+      cart: { food: 'grazing', size: 'L', bubbles: 'b12', flowers: null, balloons: 'bh', pinata: false, setup: false } },
+    romantic: { name: 'The Romantic Drop', tagline: 'Roses, bubbles and a table for two.', img: 'assets/img/bubbles-mr-mrs.jpg', serves: 'Serves 2–4',
+      cart: { food: 'grazing', size: 'S', bubbles: 'b6', flowers: 'fr', balloons: 'bc', pinata: false, setup: false } },
+    welcome: { name: 'The Welcome Drop', tagline: 'Delivered before check-in. Coordinated with your host.', img: 'assets/img/flowers.jpg', serves: 'Serves 8–12',
+      cart: { food: 'fruit', size: 'L', bubbles: 'b6', flowers: 'fp', balloons: null, pinata: false, setup: false } }
+  };
 
   // ---------- Cart ----------
-  const EMPTY = { food: null, size: 'S', bubbles: null, flowers: null, balloons: null, setup: false };
+  const EMPTY = { food: null, size: 'S', bubbles: null, flowers: null, balloons: null, pinata: false, setup: false };
   const KEY = 'tpd_cart_v1';
   function getCart() {
     try { return Object.assign({}, EMPTY, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) { return { ...EMPTY }; }
@@ -46,15 +87,17 @@ const TPD = (() => {
 
   function lines(c) {
     const out = [];
-    if (c.food) { const f = find(CATALOG.food, c.food); out.push({ name: `${f.name} · ${SIZE_LABEL[c.size].replace('Serves ', '')}`, price: f.sizes[c.size] }); }
-    if (c.bubbles) { const b = find(CATALOG.bubbles, c.bubbles); out.push({ name: b.name, price: b.price }); }
-    if (c.flowers) { const f = find(CATALOG.flowers, c.flowers); out.push({ name: f.name, price: f.price }); }
-    if (c.balloons) { const b = find(CATALOG.balloons, c.balloons); out.push({ name: b.name, price: b.price }); }
-    if (c.setup) out.push({ name: CATALOG.setup.name, price: CATALOG.setup.price });
+    if (c.food) { const f = find(CATALOG.food, c.food); out.push({ name: `${f.name} · ${SIZE_LABEL[c.size].replace('Serves ', '')}`, price: f.sizes[c.size], includes: f.includes }); }
+    if (c.bubbles) { const b = find(CATALOG.bubbles, c.bubbles); out.push({ name: b.name, price: b.price, includes: b.includes }); }
+    if (c.flowers) { const f = find(CATALOG.flowers, c.flowers); out.push({ name: f.name, price: f.price, includes: f.includes }); }
+    if (c.balloons) { const b = find(CATALOG.balloons, c.balloons); out.push({ name: b.name, price: b.price, includes: b.includes }); }
+    if (c.pinata) out.push({ name: CATALOG.pinata.name, price: CATALOG.pinata.price, includes: CATALOG.pinata.includes });
+    if (c.setup) out.push({ name: CATALOG.setup.name, price: CATALOG.setup.price, includes: CATALOG.setup.includes });
     return out;
   }
   const subtotal = c => lines(c).reduce((s, l) => s + l.price, 0);
   const count = c => lines(c).length;
+  const dropPrice = id => subtotal(DROPS[id].cart);
 
   function updateCartBadge() {
     const n = count(getCart());
@@ -62,104 +105,156 @@ const TPD = (() => {
   }
 
   // ---------- Shared UI ----------
+  const money = n => `$${n}`;
+  const listHTML = arr => `<ul class="includes">${arr.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  const param = k => new URLSearchParams(location.search).get(k);
   function initNav() {
     const t = document.querySelector('.menu-toggle');
     const m = document.querySelector('.mobile-menu');
     if (t && m) t.addEventListener('click', () => m.classList.toggle('open'));
     updateCartBadge();
+    // Drop prices on home cards
+    document.querySelectorAll('[data-drop-price]').forEach(el => { const id = el.dataset.dropPrice; if (DROPS[id]) el.textContent = money(dropPrice(id)); });
   }
-  const money = n => `$${n}`;
 
-  // ---------- Product page (Grazing Board) ----------
+  // ---------- Product page (any board) ----------
   function initProduct() {
-    const c = getCart();
-    const state = { size: c.food === 'grazing' ? c.size : 'S', veg: false, bubbles: c.food === 'grazing' && c.bubbles === 'b6', flowers: c.food === 'grazing' && c.flowers === 'fp', balloons: c.food === 'grazing' && c.balloons === 'bb', setup: c.food === 'grazing' && c.setup };
-    const food = find(CATALOG.food, 'grazing');
     const $ = s => document.querySelector(s);
+    const id = CATALOG.food.some(f => f.id === param('id')) ? param('id') : 'grazing';
+    const food = find(CATALOG.food, id);
+    const c = getCart();
+    const same = c.food === id;
+    const state = { size: same ? c.size : 'S', veg: false, bubbles: same && !!c.bubbles, flowers: same && !!c.flowers, balloons: same && !!c.balloons, pinata: same && c.pinata, setup: same && c.setup };
+
+    document.title = `${food.name} — delivered in Puerto Vallarta | The Party Drop`;
+    $('#pTag').textContent = food.tag;
+    $('#pName').textContent = food.name;
+    $('#pLong').textContent = food.long;
+    $('#pIncludes').innerHTML = listHTML(food.includes) + `<p class="muted" style="margin-top:8px">${SIZE_LABEL.S} or ${SIZE_LABEL.L}. [Exact weights per size.]</p>`;
+    $('#pPerfect').textContent = food.perfect;
+    $('#pDietary').textContent = food.dietary;
+    $('#gallery').innerHTML = food.photos.map((p, i) => `<img src="${p}" alt="${food.name}" ${i ? 'loading="lazy"' : ''}>`).join('');
+    $('#sizeS').innerHTML = `<strong>Serves 4–6</strong><small>${money(food.sizes.S)}</small>`;
+    $('#sizeL').innerHTML = `<strong>Serves 8–12</strong><small>${money(food.sizes.L)} · best value</small>`;
+    $('#pairs').innerHTML = CATALOG.food.filter(f => f.id !== id).map(f => `
+      <a href="product.html?id=${f.id}" class="card"><div class="card-img"><img src="${f.img}" alt="" loading="lazy"></div>
+      <div class="card-body"><div class="card-title" style="font-size:15px">${f.name}</div><div class="card-sub">from ${money(f.sizes.S)} · ${f.desc}</div></div></a>`).join('')
+      + `<a href="index.html#drops" class="card"><div class="card-img"><img src="assets/img/birthday-cake.jpg" alt="" loading="lazy"></div>
+      <div class="card-body"><div class="card-title" style="font-size:15px">The Drops</div><div class="card-sub">Curated bundles with this board</div></div></a>`;
+
     const render = () => {
       const base = food.sizes[state.size];
-      const total = base + (state.bubbles ? 79 : 0) + (state.flowers ? 65 : 0) + (state.balloons ? 85 : 0) + (state.setup ? 120 : 0);
+      const total = base + (state.bubbles ? 79 : 0) + (state.flowers ? 65 : 0) + (state.balloons ? 85 : 0) + (state.pinata ? CATALOG.pinata.price : 0) + (state.setup ? 120 : 0);
       $('#boardPrice').textContent = money(base);
-      $('#serves').textContent = state.size === 'L' ? 'Serves 8–12 · ~$22 per person' : 'Serves 4–6 · ~$30 per person';
+      const pp = Math.round(base / (state.size === 'L' ? 10 : 5));
+      $('#serves').textContent = `${SIZE_LABEL[state.size]} · ~$${pp} per person`;
       document.querySelectorAll('[data-size]').forEach(b => b.classList.toggle('on', b.dataset.size === state.size));
-      ['veg', 'bubbles', 'flowers', 'balloons', 'setup'].forEach(k => { const el = $(`[data-toggle="${k}"]`); if (el) el.classList.toggle('on', state[k]); });
+      document.querySelectorAll('[data-toggle]').forEach(el => el.classList.toggle('on', !!state[el.dataset.toggle]));
       document.querySelectorAll('.js-total').forEach(el => el.textContent = money(total));
     };
     document.querySelectorAll('[data-size]').forEach(b => b.addEventListener('click', () => { state.size = b.dataset.size; render(); }));
-    document.querySelectorAll('[data-toggle]').forEach(b => b.addEventListener('click', () => { const k = b.dataset.toggle; state[k] = !state[k]; render(); }));
+    document.querySelectorAll('[data-toggle]').forEach(b => b.addEventListener('click', e => { if (e.target.closest('.details-btn')) return; state[b.dataset.toggle] = !state[b.dataset.toggle]; render(); }));
+    bindDetails(document);
     $('#addToDrop').addEventListener('click', () => {
-      saveCart({ food: 'grazing', size: state.size, bubbles: state.bubbles ? 'b6' : null, flowers: state.flowers ? 'fp' : null, balloons: state.balloons ? 'bb' : null, setup: state.setup });
+      saveCart({ food: id, size: state.size, bubbles: state.bubbles ? 'b6' : null, flowers: state.flowers ? 'fp' : null, balloons: state.balloons ? 'bb' : null, pinata: state.pinata, setup: state.setup });
       window.location.href = 'build.html?step=5';
     });
     render();
   }
 
+  // ---------- Drop page ----------
+  function initDrop() {
+    const $ = s => document.querySelector(s);
+    const id = DROPS[param('id')] ? param('id') : 'birthday';
+    const d = DROPS[id];
+    document.title = `${d.name} | The Party Drop`;
+    $('#dName').textContent = d.name;
+    $('#dTagline').textContent = d.tagline;
+    $('#dServes').textContent = d.serves;
+    $('#dImg').src = d.img; $('#dImg').alt = d.name;
+    $('#dPrice').textContent = money(dropPrice(id));
+    $('#dAdd').href = `build.html?drop=${id}`;
+    $('#dLines').innerHTML = lines(d.cart).map(l => `
+      <div class="drop-line"><div class="drop-line-head"><strong>${l.name}</strong><span>${money(l.price)}</span></div>${listHTML(l.includes)}</div>`).join('');
+    $('#otherDrops').innerHTML = Object.keys(DROPS).filter(k => k !== id).map(k => `
+      <a href="drop.html?id=${k}" class="card"><div class="card-img"><img src="${DROPS[k].img}" alt="" loading="lazy"></div>
+      <div class="card-body"><div class="card-title" style="font-size:15px">${DROPS[k].name}</div><div class="card-sub">${DROPS[k].serves} · ${money(dropPrice(k))}</div></div></a>`).join('');
+  }
+
+  // ---------- Details toggles (shared) ----------
+  function bindDetails(root) {
+    root.querySelectorAll('.details-btn').forEach(b => {
+      if (b.dataset.bound) return; b.dataset.bound = '1';
+      b.addEventListener('click', e => {
+        e.preventDefault(); e.stopPropagation();
+        const panel = b.closest('.opt-wrap').querySelector('.details-panel');
+        const open = panel.classList.toggle('open');
+        b.textContent = open ? 'Hide' : 'Details';
+      });
+    });
+  }
+
   // ---------- Build Your Drop wizard ----------
   function initBuild() {
     const $ = s => document.querySelector(s);
-    const params = new URLSearchParams(location.search);
-    const preset = params.get('drop');
-    const PRESETS = {
-      brunch:   { food: 'brunch',  size: 'S', bubbles: 'b6',  flowers: null, balloons: null, setup: false },
-      birthday: { food: 'grazing', size: 'S', bubbles: 'b6',  flowers: 'fp', balloons: 'bb', setup: false },
-      girls:    { food: 'grazing', size: 'L', bubbles: 'b12', flowers: null, balloons: 'bh', setup: false },
-      romantic: { food: 'grazing', size: 'S', bubbles: 'b6',  flowers: 'fr', balloons: 'bc', setup: false },
-      welcome:  { food: 'fruit',   size: 'L', bubbles: 'b6',  flowers: 'fp', balloons: null, setup: false }
-    };
-    let cart = preset && PRESETS[preset] ? { ...PRESETS[preset] } : getCart();
+    const preset = param('drop');
+    let cart = preset && DROPS[preset] ? { ...DROPS[preset].cart } : getCart();
     if (!cart.food) cart.food = 'grazing';
-    let step = preset ? 5 : Math.min(5, Math.max(1, parseInt(params.get('step') || '1', 10)));
+    let step = preset ? 5 : Math.min(5, Math.max(1, parseInt(param('step') || '1', 10)));
     const labels = ['Pick your food', 'Add your bubbles', 'Add something pretty', 'Make it a party', 'Ready'];
 
-    const optHTML = (o, on, extra) => `
-      <button type="button" class="opt ${on ? 'on' : ''}" data-id="${o.id}">
-        <span class="opt-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFF9F3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
-        ${o.img ? `<img class="opt-thumb" src="${o.img}" alt="">` : ''}
-        <span class="opt-text"><strong>${o.name}</strong><span>${o.desc}</span></span>
-        <span class="opt-price">${extra}</span>
-      </button>`;
+    const optHTML = (o, on, extra, includes) => `
+      <div class="opt-wrap">
+        <button type="button" class="opt ${on ? 'on' : ''}" data-id="${o.id}">
+          <span class="opt-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFF9F3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+          ${o.img ? `<img class="opt-thumb" src="${o.img}" alt="">` : ''}
+          <span class="opt-text"><strong>${o.name}</strong><span>${o.desc}</span></span>
+          <span class="opt-right"><span class="opt-price">${extra}</span>${includes ? '<span class="details-btn">Details</span>' : ''}</span>
+        </button>
+        ${includes ? `<div class="details-panel">${listHTML(includes)}${o.sizes ? `<a href="product.html?id=${o.id}" class="details-link">See full product page →</a>` : ''}</div>` : ''}
+      </div>`;
     const noneHTML = (on, label) => `
-      <button type="button" class="opt ${on ? 'on' : ''}" data-id="">
+      <div class="opt-wrap"><button type="button" class="opt ${on ? 'on' : ''}" data-id="">
         <span class="opt-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFF9F3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
         <span class="opt-text"><strong>${label}</strong></span>
-      </button>`;
+      </button></div>`;
 
     function render() {
-      // progress
       document.querySelectorAll('.progress span').forEach((s, i) => s.classList.toggle('on', i < Math.min(step, 4)));
       $('#stepLabel').textContent = labels[step - 1];
       $('#stepNum').textContent = `Step ${Math.min(step, 4)} of 4`;
       document.querySelectorAll('.wizard-step').forEach((s, i) => s.classList.toggle('active', i === step - 1));
-      // step 1
-      $('#foodList').innerHTML = CATALOG.food.map(f => optHTML(f, cart.food === f.id, `from ${money(f.sizes.S)}`)).join('');
+      $('#foodList').innerHTML = CATALOG.food.map(f => optHTML(f, cart.food === f.id, `from ${money(f.sizes.S)}`, f.includes)).join('');
       const food = find(CATALOG.food, cart.food);
-      $('#sizeS').innerHTML = `Serves 4–6<small>${money(food.sizes.S)}</small>`;
-      $('#sizeL').innerHTML = `Serves 8–12<small>${money(food.sizes.L)} · best value</small>`;
+      $('#sizeS').innerHTML = `<strong>Serves 4–6</strong><small>${money(food.sizes.S)}</small>`;
+      $('#sizeL').innerHTML = `<strong>Serves 8–12</strong><small>${money(food.sizes.L)} · best value</small>`;
       $('#sizeS').classList.toggle('on', cart.size === 'S');
       $('#sizeL').classList.toggle('on', cart.size === 'L');
-      // step 2–4
-      $('#bubblesList').innerHTML = noneHTML(!cart.bubbles, 'No bubbles this time') + CATALOG.bubbles.map(b => optHTML(b, cart.bubbles === b.id, `+${money(b.price)}`)).join('');
-      $('#flowersList').innerHTML = noneHTML(!cart.flowers, 'No flowers') + CATALOG.flowers.map(f => optHTML(f, cart.flowers === f.id, `+${money(f.price)}`)).join('');
-      $('#balloonsList').innerHTML = noneHTML(!cart.balloons, 'No balloons') + CATALOG.balloons.map(b => optHTML(b, cart.balloons === b.id, `+${money(b.price)}`)).join('');
+      $('#bubblesList').innerHTML = noneHTML(!cart.bubbles, 'No bubbles this time') + CATALOG.bubbles.map(b => optHTML(b, cart.bubbles === b.id, `+${money(b.price)}`, b.includes)).join('');
+      $('#flowersList').innerHTML = noneHTML(!cart.flowers, 'No flowers') + CATALOG.flowers.map(f => optHTML(f, cart.flowers === f.id, `+${money(f.price)}`, f.includes)).join('');
+      $('#balloonsList').innerHTML = noneHTML(!cart.balloons, 'No balloons') + CATALOG.balloons.map(b => optHTML(b, cart.balloons === b.id, `+${money(b.price)}`, b.includes)).join('');
+      $('#pinataOpt').classList.toggle('on', cart.pinata);
       $('#setupOpt').classList.toggle('on', cart.setup);
-      // summary
       $('#summaryLines').innerHTML = lines(cart).map(l => `<div class="summary-line"><span>${l.name}</span><strong>${money(l.price)}</strong></div>`).join('');
+      $('#summaryIncludes').innerHTML = lines(cart).map(l => `<div class="drop-line"><div class="drop-line-head"><strong>${l.name}</strong></div>${listHTML(l.includes)}</div>`).join('');
       document.querySelectorAll('.js-total').forEach(el => el.textContent = money(subtotal(cart)));
-      // footer
       $('#wizardFooter').classList.toggle('hide', step === 5);
       $('#nextBtn').textContent = step === 4 ? 'Review my Drop' : 'Next';
       $('#backBtn').classList.toggle('hide', step === 1);
       $('#skipBtn').classList.toggle('hide', step === 1 || step === 5);
+      bindDetails(document);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    // delegation
-    $('#foodList').addEventListener('click', e => { const b = e.target.closest('[data-id]'); if (b) { cart.food = b.dataset.id; render(); } });
+    const pick = (listId, key) => $('#' + listId).addEventListener('click', e => {
+      if (e.target.closest('.details-btn')) return;
+      const b = e.target.closest('[data-id]'); if (!b) return;
+      cart[key] = b.dataset.id || null; render();
+    });
+    pick('foodList', 'food'); pick('bubblesList', 'bubbles'); pick('flowersList', 'flowers'); pick('balloonsList', 'balloons');
     $('#sizeS').addEventListener('click', () => { cart.size = 'S'; render(); });
     $('#sizeL').addEventListener('click', () => { cart.size = 'L'; render(); });
-    [['bubblesList', 'bubbles'], ['flowersList', 'flowers'], ['balloonsList', 'balloons']].forEach(([id, key]) => {
-      $('#' + id).addEventListener('click', e => { const b = e.target.closest('[data-id]'); if (b) { cart[key] = b.dataset.id || null; render(); } });
-    });
-    $('#setupOpt').addEventListener('click', () => { cart.setup = !cart.setup; render(); });
+    $('#pinataOpt').addEventListener('click', e => { if (e.target.closest('.details-btn')) return; cart.pinata = !cart.pinata; render(); });
+    $('#setupOpt').addEventListener('click', e => { if (e.target.closest('.details-btn')) return; cart.setup = !cart.setup; render(); });
     $('#nextBtn').addEventListener('click', () => { step = Math.min(5, step + 1); saveCart(cart); render(); });
     $('#skipBtn').addEventListener('click', () => { step = Math.min(5, step + 1); render(); });
     $('#backBtn').addEventListener('click', () => { step = Math.max(1, step - 1); render(); });
@@ -228,10 +323,11 @@ const TPD = (() => {
     initNav();
     const page = document.body.dataset.page;
     if (page === 'product') initProduct();
+    if (page === 'drop') initDrop();
     if (page === 'build') initBuild();
     if (page === 'checkout') initCheckout();
     if (page === 'confirmation') initConfirmation();
   });
 
-  return { CATALOG, getCart, saveCart, clearCart };
+  return { CATALOG, DROPS, getCart, saveCart, clearCart };
 })();

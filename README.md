@@ -8,12 +8,13 @@ Sitio estático (HTML + CSS + JS, sin framework ni build) para **The Party Drop*
 
 ```
 index.html          Home (hero, Drops, cómo funciona, tienda, ocasiones, reseñas, zonas, FAQ)
-product.html        Ficha de producto: The Grazing Board (tamaños, add-ons, total en vivo)
+product.html        Ficha de producto genérica: ?id=grazing|brunch|fruit|botana (tamaños, add-ons, total en vivo)
+drop.html           Detalle de cada Drop: ?id=birthday|brunch|girls|romantic|welcome (qué incluye, precio, Add this Drop)
 build.html          Build Your Drop — wizard de 4 pasos + resumen
 checkout.html       Checkout (fecha, ventana, zona, acceso, sorpresa, pago)
 confirmation.html   Confirmación del pedido
 assets/css/style.css
-assets/js/app.js    Catálogo, carrito (localStorage), wizard, checkout
+assets/js/app.js    Catálogo (con 'includes' por producto), Drops, carrito (localStorage), wizard, checkout
 assets/img/         Fotografías optimizadas para web (≤1600 px)
 ```
 
@@ -39,9 +40,9 @@ python3 -m http.server 8080
 
 ## Flujo de compra
 
-`index` → `product` (Add to Drop) o `build.html?drop=birthday|brunch|girls|romantic|welcome` (Drop pre-armado) → `build.html` (4 pasos) → `checkout` → `confirmation`.
+`index` → `product.html?id=…` (Add to Drop) o `drop.html?id=…` → `build.html?drop=…` (Drop pre-armado) → `build.html` (4 pasos) → `checkout` → `confirmation`.
 
-El carrito vive en `localStorage` (`tpd_cart_v1`) y se comparte entre páginas. Los Drops pre-armados son carritos con selecciones por defecto que el cliente puede editar.
+El carrito vive en `localStorage` (`tpd_cart_v1`) y se comparte entre páginas. Los Drops pre-armados son carritos con selecciones por defecto que el cliente puede editar. El precio de cada Drop se calcula como la suma de sus componentes (`DROPS` en `app.js`). Cada opción del wizard tiene un botón **Details** con lo que incluye. Add-ons de decoración: balloon sets, **piñata** y Set It Up.
 
 ## Placeholders pendientes
 

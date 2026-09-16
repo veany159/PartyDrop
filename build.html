@@ -59,15 +59,27 @@
     <section class="wizard-step">
       <div class="eyebrow">Step 4</div>
       <h1>Make it a party.</h1>
-      <p class="muted">Balloons, a sign, candles and a handwritten card. Simple, elegant, ready for the photo.</p>
+      <p class="muted">Balloons, a sign, candles and a handwritten card. Simple, elegant, ready for the photo. Add a piñata for the full Mexican moment.</p>
       <div class="wizard-img"><img src="assets/img/birthday-cake.jpg" alt="Naked cake with berries and flowers"></div>
       <div class="stack" id="balloonsList"></div>
+      <div class="opt-wrap">
+        <button type="button" class="opt" id="pinataOpt" style="margin-top:6px">
+          <span class="opt-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFF9F3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+          <img class="opt-thumb" src="assets/img/churros-hands.jpg" alt="">
+          <span class="opt-text"><strong>Add a Piñata</strong><span>Handmade, filled with candy &amp; confetti, ready to hang</span></span>
+          <span class="opt-right"><span class="opt-price">+$59</span><span class="details-btn">Details</span></span>
+        </button>
+        <div class="details-panel"><ul class="includes"><li>Handmade piñata (star, or ask for a shape)</li><li>Filled with candy &amp; confetti</li><li>Stick &amp; blindfold</li><li>Rope, ready to hang</li></ul></div>
+      </div>
+      <div class="opt-wrap">
       <button type="button" class="opt" id="setupOpt" style="border-color:#2B1D16;margin-top:6px">
         <span class="opt-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFF9F3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
         <span class="opt-thumb dark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D7B26A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18M5 11v8h14v-8M12 3v4M8 7h8"/></svg></span>
         <span class="opt-text"><strong>Upgrade to Set It Up</strong><span>We style the table before they walk in. Zones A &amp; B, 72h notice.</span></span>
-        <span class="opt-price">+$120</span>
+        <span class="opt-right"><span class="opt-price">+$120</span><span class="details-btn">Details</span></span>
       </button>
+      <div class="details-panel"><ul class="includes"><li>Our team arrives 30–45 min before</li><li>Table styled: food, cups, flowers, balloons</li><li>A photo sent to you when it's ready</li><li>Zones A &amp; B · 72h notice</li></ul></div>
+      </div>
     </section>
 
     <!-- READY -->
@@ -79,6 +91,7 @@
         <div id="summaryLines"></div>
         <div class="summary-total"><span>Your Drop</span><span class="price js-total">$0</span></div>
       </div>
+      <details class="summary-includes"><summary>What's included in your Drop</summary><div id="summaryIncludes"></div></details>
       <p class="muted" style="font-size:12px">Delivery fee and minimum order are calculated by zone in the next step. Prices in USD.</p>
       <a href="checkout.html" class="btn btn-primary" id="toCheckout">Check date &amp; checkout</a>
       <div class="chips" style="justify-content:center">

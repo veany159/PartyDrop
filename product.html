@@ -40,27 +40,23 @@
 
   <main class="container product-layout">
     <div>
-      <div class="gallery">
-        <img src="assets/img/grazing-board.jpg" alt="The Grazing Board: blue cheese, salami, olives, candied pecans and crackers">
-        <img src="assets/img/charcuterie-tray.jpg" alt="Brie, salami roses, olives and strawberries" loading="lazy">
-        <img src="assets/img/canapes.jpg" alt="Watermelon and mozzarella bites with salmon canapés" loading="lazy">
-      </div>
+      <div class="gallery" id="gallery"></div>
     </div>
 
     <div>
       <div class="product-head">
-        <div class="eyebrow">Food · Best seller</div>
+        <div class="eyebrow" id="pTag">Food</div>
         <div class="product-title">
-          <h1>The Grazing Board</h1>
+          <h1 id="pName">The Grazing Board</h1>
           <div class="price" id="boardPrice">$149</div>
         </div>
-        <p class="muted">Cheese, charcuterie, fresh fruit, nuts, olives, crackers and dips. Styled, chilled and ready to serve the moment it lands.</p>
+        <p class="muted" id="pLong"></p>
       </div>
 
       <div class="label-row"><strong>Size</strong><span class="muted" id="serves">Serves 4–6</span></div>
       <div class="seg-group">
-        <button type="button" class="seg on" data-size="S"><strong>Serves 4–6</strong><small>$149</small></button>
-        <button type="button" class="seg" data-size="L"><strong>Serves 8–12</strong><small>$239 · best value</small></button>
+        <button type="button" class="seg on" data-size="S" id="sizeS"></button>
+        <button type="button" class="seg" data-size="L" id="sizeL"></button>
       </div>
       <button type="button" class="opt mt-1" data-toggle="veg" style="padding:10px 12px">
         <span class="opt-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFF9F3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
@@ -89,6 +85,12 @@
             <span class="opt-text"><strong>Add Birthday Balloons</strong><span>Balloon set, "Happy Birthday" sign, candles, card</span></span>
             <span class="opt-price">+$85</span>
           </button>
+          <button type="button" class="opt" data-toggle="pinata">
+            <span class="opt-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFF9F3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
+            <img class="opt-thumb" src="assets/img/churros-hands.jpg" alt="">
+            <span class="opt-text"><strong>Add a Piñata</strong><span>Handmade, filled with candy & confetti, ready to hang</span></span>
+            <span class="opt-price">+$59</span>
+          </button>
           <button type="button" class="opt" data-toggle="setup">
             <span class="opt-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFF9F3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span>
             <span class="opt-thumb dark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D7B26A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18M5 11v8h14v-8M12 3v4M8 7h8"/></svg></span>
@@ -107,9 +109,9 @@
       </div>
 
       <div class="mt-3">
-        <details open><summary>What's included</summary><p>3 cheeses · 2 cured meats · seasonal fruit · nuts · olives · crackers · 2 house dips · honey · [exact weights per size]. Board or tray included, no return needed.</p></details>
-        <details><summary>Perfect for</summary><p>A light lunch for 4–6, or a grazing snack for 8–10. Arrival day, pool day, before dinner.</p></details>
-        <details><summary>Dietary &amp; allergens</summary><p>Contains dairy, gluten, tree nuts. Meat-free option available. Let us know about allergies at checkout.</p></details>
+        <details open><summary>What's included</summary><div id="pIncludes" style="margin-top:8px;font-size:13px;color:#6B5747"></div></details>
+        <details><summary>Perfect for</summary><p id="pPerfect"></p></details>
+        <details><summary>Dietary &amp; allergens</summary><p id="pDietary"></p></details>
         <details><summary>How it arrives</summary><p>Chilled in our box with a care card. Keep refrigerated; take out 20 minutes before serving; best within 3 hours.</p></details>
         <details><summary>Delivery &amp; lead time</summary><p>Order 48h ahead. 2-hour windows, 9 a.m.–6 p.m. Delivery fee and minimum order by zone at checkout.</p></details>
         <details><summary>Reviews</summary><p>[Product reviews with guest name, city and occasion.]</p></details>
@@ -118,13 +120,8 @@
   </main>
 
   <section class="section container">
-    <div class="eyebrow" style="margin-bottom:12px">Pairs well with</div>
-    <div class="pairs">
-      <a href="build.html?step=1" class="card"><div class="card-img"><img src="assets/img/salmon-toast.jpg" alt="" loading="lazy"></div><div class="card-body"><div class="card-title" style="font-size:15px">The Fruit Board</div><div class="card-sub">$89 · Serves 6–8</div></div></a>
-      <a href="build.html?drop=girls" class="card"><div class="card-img"><img src="assets/img/canapes.jpg" alt="" loading="lazy"></div><div class="card-body"><div class="card-title" style="font-size:15px">The Girls Trip Drop</div><div class="card-sub">$453 · Includes this board</div></div></a>
-      <a href="build.html?step=1" class="card"><div class="card-img"><img src="assets/img/botana.jpg" alt="" loading="lazy"></div><div class="card-body"><div class="card-title" style="font-size:15px">La Botana Board</div><div class="card-sub">$139 · Mexican grazing</div></div></a>
-      <a href="build.html?step=1" class="card"><div class="card-img"><img src="assets/img/brunch-bagel.jpg" alt="" loading="lazy"></div><div class="card-body"><div class="card-title" style="font-size:15px">The Brunch Board</div><div class="card-sub">$139 · Serves 4–6</div></div></a>
-    </div>
+    <div class="eyebrow" style="margin-bottom:12px">More boards</div>
+    <div class="pairs" id="pairs"></div>
   </section>
 
   <footer>

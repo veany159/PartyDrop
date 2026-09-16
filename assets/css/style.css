@@ -314,3 +314,31 @@ select.inp { appearance: none; -webkit-appearance: none; background-image: url("
   .checkout-summary { position: sticky; top: 80px; }
   .confirm-inner { max-width: 640px; }
 }
+
+/* Details panels, includes lists, drop page */
+.opt-wrap { display: flex; flex-direction: column; }
+.opt-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+.details-btn { font-size: 11px; font-weight: 600; color: var(--terra); text-decoration: underline; cursor: pointer; padding: 4px 0; }
+.details-panel { display: none; padding: 10px 14px 12px 50px; font-size: 13px; color: var(--muted); }
+.details-panel.open { display: block; }
+.details-link { display: inline-block; margin-top: 6px; font-size: 12px; font-weight: 600; color: var(--choc); text-decoration: underline; }
+.includes { margin: 0; padding-left: 18px; line-height: 1.6; }
+.includes li { margin: 0; }
+.drop-line { padding: 12px 0; border-bottom: 1px solid #F3E8D8; font-size: 14px; }
+.drop-line:last-child { border-bottom: 0; }
+.drop-line-head { display: flex; justify-content: space-between; margin-bottom: 4px; }
+.drop-line .includes { font-size: 13px; color: var(--muted); }
+.drop-hero { position: relative; min-height: 380px; display: flex; align-items: flex-end; overflow: hidden; background: var(--sand); }
+.drop-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.drop-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(43,29,22,0) 30%, rgba(43,29,22,.85) 100%); }
+.drop-hero .hero-content { padding: 32px 0 28px; }
+.drop-hero h1 { font-size: clamp(32px, 8vw, 52px); }
+.drop-meta { display: flex; justify-content: space-between; align-items: baseline; padding: 18px 0 0; }
+.drop-meta .price { font-size: 28px; }
+.summary-includes { margin-top: 12px; }
+.summary-includes summary { font-size: 13px; color: var(--muted); font-weight: 500; }
+@media (min-width: 768px) {
+  .drop-layout { display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: start; padding-top: 32px; }
+  .drop-hero { min-height: 520px; }
+  .other-drops { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+}
