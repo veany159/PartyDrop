@@ -9,7 +9,7 @@ Sitio estático (HTML + CSS + JS, sin framework ni build) para **The Party Drop*
 ```
 index.html          Home (hero, Drops, cómo funciona, tienda, ocasiones, reseñas, zonas, FAQ)
 product.html        Ficha de producto genérica: ?id=grazing|brunch|fruit|botana (tamaños, add-ons, total en vivo)
-drop.html           Detalle de cada Drop: ?id=birthday|brunch|girls|romantic|welcome (qué incluye, precio, Add this Drop)
+drop.html           Detalle de cada Drop: ?id=birthday|brunch|girls|fiesta|romantic|welcome (qué incluye, precio, Add this Drop)
 build.html          Build Your Drop — wizard de 4 pasos + resumen
 checkout.html       Checkout (fecha, ventana, zona, acceso, sorpresa, pago)
 confirmation.html   Confirmación del pedido
@@ -42,7 +42,7 @@ python3 -m http.server 8080
 
 `index` → `product.html?id=…` (Add to Drop) o `drop.html?id=…` → `build.html?drop=…` (Drop pre-armado) → `build.html` (4 pasos) → `checkout` → `confirmation`.
 
-El carrito vive en `localStorage` (`tpd_cart_v1`) y se comparte entre páginas. Los Drops pre-armados son carritos con selecciones por defecto que el cliente puede editar. El precio de cada Drop se calcula como la suma de sus componentes (`DROPS` en `app.js`). Cada opción del wizard tiene un botón **Details** con lo que incluye. Add-ons de decoración: balloon sets, **piñata** y Set It Up.
+El carrito vive en `localStorage` (`tpd_cart_v1`) y se comparte entre páginas. Los Drops pre-armados son carritos con selecciones por defecto que el cliente puede editar. El precio de cada Drop se calcula como la suma de sus componentes (`DROPS` en `app.js`). Cada opción del wizard tiene un botón **Details** con lo que incluye. Add-ons de decoración: balloon sets, **piñata** y Set It Up. Categoría dulce (fresas con chocolate, tabla de chocolates) opcional en el paso 1. Tamaños de board: For 2 · 4–6 · 8–12; Bubbles for 2 / 6 / 12.
 
 ## Placeholders pendientes
 

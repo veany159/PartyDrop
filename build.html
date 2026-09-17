@@ -30,20 +30,23 @@
       <p class="muted">Every Drop starts with a board. Choose one, then a size.</p>
       <div class="stack" id="foodList"></div>
       <div class="lbl mt-1">Size</div>
-      <div class="seg-group" style="margin-top:0">
+      <div class="seg-group" style="margin-top:0;grid-template-columns:repeat(3,1fr)">
+        <button type="button" class="seg" id="sizeXS"></button>
         <button type="button" class="seg" id="sizeS"></button>
         <button type="button" class="seg" id="sizeL"></button>
       </div>
+      <div class="lbl mt-2">Add something sweet <span class="muted" style="font-weight:400">(optional)</span></div>
+      <div class="stack" id="sweetsList"></div>
     </section>
 
     <!-- STEP 2 -->
     <section class="wizard-step">
       <div class="eyebrow">Step 2</div>
-      <h1>Add your bubbles.</h1>
-      <p class="muted">Fresh juices, fruit garnish, premium cups and the bubbles. Everything for mimosas, nothing to shop for.</p>
-      <div class="wizard-img"><img src="assets/img/bubbles-mr-mrs.jpg" alt="Pink sparkling drinks with raspberries"></div>
+      <h1>Add your drinks.</h1>
+      <p class="muted">Mimosas, micheladas or bloody marys. Juices, mixes, garnish, cups and the bottles. Everything for the drink, nothing to shop for.</p>
+      <div class="wizard-img"><img src="assets/img/bubbles-bottle.jpg" alt="Chilled bottle of sparkling wine by the sea"></div>
       <div class="stack" id="bubblesList"></div>
-      <p class="muted" style="font-size:12px">Alcohol-free version (Juice Set) available at the same step, [price TBD].</p>
+      <p class="muted" style="font-size:12px">Alcohol-free versions (Juice Set, virgin michelada) available at the same step, [price TBD].</p>
     </section>
 
     <!-- STEP 3 -->

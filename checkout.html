@@ -49,11 +49,12 @@
         <h2>Where are you staying?</h2>
         <div>
           <span class="lbl">Property type</span>
-          <div class="grid-2" style="grid-template-columns:repeat(4,1fr)">
+          <div class="grid-2" style="grid-template-columns:repeat(5,1fr)">
             <button type="button" class="seg seg-sm on" data-prop="villa">Villa</button>
             <button type="button" class="seg seg-sm" data-prop="airbnb">Airbnb</button>
             <button type="button" class="seg seg-sm" data-prop="condo">Condo</button>
             <button type="button" class="seg seg-sm" data-prop="hotel">Hotel</button>
+            <button type="button" class="seg seg-sm" data-prop="boat">Boat / Marina</button>
           </div>
         </div>
         <div>
@@ -66,7 +67,7 @@
           <div class="zone-info" id="zoneInfo"></div>
           <p class="error mt-1" id="minError"></p>
         </div>
-        <div><label class="lbl" for="prop">Property or complex name</label><input id="prop" class="inp" type="text" placeholder="e.g. Villa Serena, Casa Kimberly, Marriott" required></div>
+        <div><label class="lbl" for="prop">Property or complex name</label><input id="prop" class="inp" type="text" placeholder="e.g. Villa Serena, Marriott, or boat name + marina" required></div>
         <div class="grid-2">
           <div><label class="lbl" for="addr">Street address</label><input id="addr" class="inp" type="text" placeholder="Street and number"></div>
           <div><label class="lbl" for="unit">Unit / villa #</label><input id="unit" class="inp" type="text" placeholder="Optional"></div>
